@@ -1,0 +1,23 @@
+// Wait till the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  const copyBtn = document.getElementById("copy-btn");
+  const emailText = document.getElementById("email-text").innerText;
+  const statusMsg = document.getElementById("copy-status");
+
+  copyBtn.addEventListener("click", () => {
+    // Copy the email to user's clipboard
+    navigator.clipboard.writeText(emailText).then(() => {
+      copyBtn.innerText = "Copied! ✓";
+      statusMsg.innerText = "Email copied to clipboard successfully!";
+
+      // Reset button after 3 seconds
+      setTimeout(() => {
+        copyBtn.innerText = "Copy Email";
+        statusMsg.innerText = "";
+      }, 3000);
+    }).catch(err => {
+      console.error("Failed to copy: ", err);
+      statusMsg.innerText = "Failed to copy email.";
+    });
+  });
+});
